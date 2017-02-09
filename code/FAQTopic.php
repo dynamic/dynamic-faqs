@@ -53,7 +53,7 @@ class FAQTopic extends DataObject
      */
     public function canCreate($member = null)
     {
-        return Permission::check('FAQ_CREATE');
+        return Permission::check('FAQ_CREATE', 'any', $member);
     }
 
     /**
@@ -62,7 +62,7 @@ class FAQTopic extends DataObject
      */
     public function canEdit($member = null)
     {
-        return Permission::check('FAQ_EDIT');
+        return Permission::check('FAQ_EDIT', 'any', $member);
     }
 
     /**
@@ -71,7 +71,7 @@ class FAQTopic extends DataObject
      */
     public function canDelete($member = null)
     {
-        return Permission::check('FAQ_DELETE');
+        return Permission::check('FAQ_DELETE', 'any', $member);
     }
 
     /**
