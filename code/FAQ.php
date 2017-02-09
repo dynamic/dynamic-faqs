@@ -143,27 +143,6 @@ class FAQ extends DataObject implements PermissionProvider, Dynamic\ViewableData
     }
 
     /**
-     * @return null|string
-     */
-    public function getTagNames()
-    {
-        $list = null;
-
-        if ($this->Tags()->exists()) {
-            $ct = 1;
-            foreach ($this->Tags() as $tag) {
-                $list .= $tag->Title;
-                if ($ct < $this->Tags()->Count()) {
-                    $list .= ', ';
-                }
-                ++$ct;
-            }
-        }
-
-        return $list;
-    }
-
-    /**
      * @return mixed
      */
     public function getTopicName()
@@ -226,7 +205,7 @@ class FAQ extends DataObject implements PermissionProvider, Dynamic\ViewableData
      */
     public function canCreate($member = null)
     {
-        return Permission::check('FAQ_CREATE');
+        return Permission::check('FAQ_CREATE', 'any', $member);
     }
 
     /**
@@ -235,7 +214,7 @@ class FAQ extends DataObject implements PermissionProvider, Dynamic\ViewableData
      */
     public function canEdit($member = null)
     {
-        return Permission::check('FAQ_EDIT');
+        return Permission::check('FAQ_EDIT', 'any', $member);
     }
 
     /**
@@ -244,7 +223,7 @@ class FAQ extends DataObject implements PermissionProvider, Dynamic\ViewableData
      */
     public function canDelete($member = null)
     {
-        return Permission::check('FAQ_DELETE');
+        return Permission::check('FAQ_DELETE', 'any', $member);
     }
 
     /**

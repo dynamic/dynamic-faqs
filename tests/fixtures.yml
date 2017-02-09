@@ -1,0 +1,31 @@
+Group:
+  administrators:
+    Title: Administrators
+Permission:
+  administrators:
+    Code: ADMIN
+    Type: 1
+    Group: =>Group.administrators
+Member:
+  admin:
+    FirstName: Default
+    Surname: Admin
+    Email: admin@dynamicagency.com
+    Groups: =>Group.administrators
+  default:
+    FirstName: Default
+    Surname: User
+    Email: user@dynamicagency.com
+FAQPage:
+  default:
+    Title: 'FAQs'
+FAQTopic:
+  one:
+    Title: 'Topic One'
+  two:
+    Title: 'Topic Two'
+FAQ:
+  one:
+    Title: 'Question One'
+    URLSegment: 'question-one'
+    Topics: =>FAQTopic.one,=>FAQTopic.two
