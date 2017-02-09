@@ -1,7 +1,7 @@
 ---
 Name: dynamicfaqsconfig
 ---
-FAQCollection_Controller:
+FAQPage_Controller:
   managed_object: 'FAQ'
   extensions:
     - CollectionExtension
