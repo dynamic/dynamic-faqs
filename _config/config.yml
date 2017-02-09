@@ -1,0 +1,10 @@
+---
+Name: dynamicfaqsconfig
+---
+FAQCollection_Controller:
+  managed_object: 'FAQ'
+  extensions:
+    - CollectionExtension
+FAQ:
+  extensions:
+    - Dynamic\ViewableDataObject\Extensions\ViewableDataObject
