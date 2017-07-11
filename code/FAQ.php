@@ -47,7 +47,7 @@ class FAQ extends DataObject implements PermissionProvider, Dynamic\ViewableData
      * @var array
      */
     private static $extensions = [
-        'VersionedDataObject',
+        'Heyday\VersionedDataObjects\VersionedDataObject',
     ];
 
     /**
