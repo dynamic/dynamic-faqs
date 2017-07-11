@@ -18,7 +18,7 @@
         "silverstripe/framework": "^3.2",
         "dynamic/viewable-dataobject": "^1.0",
         "silverstripe-australia/gridfieldextensions": "^1.4",
-        "heyday/silverstripe-versioneddataobjects": "^1.5"
+        "heyday/silverstripe-versioneddataobjects": "^2.0"
     },
     "require-dev": {
         "phpunit/PHPUnit": "^3.7"
