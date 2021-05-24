@@ -11,7 +11,7 @@
     "keywords": [
         "silverstripe"
     ],
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "license": "BSD-3-Clause",
     "require": {
         "silverstripe/recipe-cms": "^4.0",
