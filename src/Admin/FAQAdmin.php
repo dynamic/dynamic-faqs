@@ -1,17 +1,40 @@
 <?php
 
+namespace Dynamic\FAQ\Admin;
+
+use SilverStripe\Admin\ModelAdmin;
+use SilverStripe\Forms\CheckboxField;
+
 class FAQAdmin extends ModelAdmin
 {
+    /**
+     * @var string[]
+     */
     private static $managed_models = array(
         'FAQ',
         'FAQTopic',
     );
+
+    /**
+     * @var string[]
+     */
     private static $model_importers = array(
         'FAQ' => 'FAQBulkLoader',
     );
+
+    /**
+     * @var string
+     */
     private static $url_segment = 'faqs';
+
+    /**
+     * @var string
+     */
     private static $menu_title = 'FAQs';
 
+    /**
+     * @return \SilverStripe\ORM\Search\SearchContext
+     */
     public function getSearchContext()
     {
         $context = parent::getSearchContext();
@@ -27,6 +50,9 @@ class FAQAdmin extends ModelAdmin
         return $context;
     }
 
+    /**
+     * @return \SilverStripe\ORM\DataList
+     */
     public function getList()
     {
         $list = parent::getList();
@@ -40,6 +66,9 @@ class FAQAdmin extends ModelAdmin
         return $list;
     }
 
+    /**
+     * @return array|string[]
+     */
     public function getExportFields()
     {
         if ($this->modelClass == 'FAQ') {
@@ -61,6 +90,11 @@ class FAQAdmin extends ModelAdmin
         return parent::getExportFields();
     }
 
+    /**
+     * @param null $id
+     * @param null $fields
+     * @return \SilverStripe\Forms\Form
+     */
     public function getEditForm($id = null, $fields = null)
     {
         $form = parent::getEditForm($id, $fields);

@@ -1,6 +1,25 @@
 <?php
 
-class FAQ extends DataObject implements PermissionProvider, Dynamic\ViewableDataObject\VDOInterfaces\ViewableDataObjectInterface
+namespace Dynamic\FAQ\Model;
+
+use Dynamic\FAQ\Page\FAQPage;
+use Dynamic\ViewableDataObject\VDOInterfaces\ViewableDataObjectInterface;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
+use SilverStripe\Forms\TextField;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\Filters\ExactMatchFilter;
+use SilverStripe\ORM\Filters\PartialMatchFilter;
+use SilverStripe\ORM\Search\SearchContext;
+use SilverStripe\ORM\ValidationResult;
+use SilverStripe\Security\Permission;
+use SilverStripe\Security\PermissionProvider;
+use SilverStripe\Versioned\Versioned;
+use Symbiote\GridFieldExtensions\GridFieldAddExistingSearchButton;
+use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+
+class FAQ extends DataObject implements PermissionProvider, ViewableDataObjectInterface
 {
     /**
      * @var string
@@ -26,7 +45,7 @@ class FAQ extends DataObject implements PermissionProvider, Dynamic\ViewableData
      * @var array
      */
     private static $many_many = array(
-        'Topics' => 'FAQTopic',
+        'Topics' => FAQTopic::class,
     );
 
     /**
@@ -47,7 +66,7 @@ class FAQ extends DataObject implements PermissionProvider, Dynamic\ViewableData
      * @var array
      */
     private static $extensions = [
-        'Heyday\VersionedDataObjects\VersionedDataObject',
+        Versioned::class,
     ];
 
     /**
@@ -75,6 +94,11 @@ class FAQ extends DataObject implements PermissionProvider, Dynamic\ViewableData
             'title' => 'Keywords'
         ],
     );
+
+    /**
+     * @var string
+     */
+    private static $table_name = "FAQ";
 
     /**
      * @return FieldList
@@ -114,7 +138,7 @@ class FAQ extends DataObject implements PermissionProvider, Dynamic\ViewableData
     {
         $result = parent::validate();
         if (!$this->Title) {
-            $result->error('A Title is required before you can save');
+            $result->addError('A Title is required before you can save');
         }
 
         return $result;
@@ -203,7 +227,7 @@ class FAQ extends DataObject implements PermissionProvider, Dynamic\ViewableData
      * @param null $member
      * @return bool|int
      */
-    public function canCreate($member = null)
+    public function canCreate($member = null, $context = [])
     {
         return Permission::check('FAQ_CREATE', 'any', $member);
     }

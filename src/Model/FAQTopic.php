@@ -1,5 +1,11 @@
 <?php
 
+namespace Dynamic\FAQ\Model;
+
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Security\Permission;
+use Symbiote\GridFieldExtensions\GridFieldAddExistingSearchButton;
+
 class FAQTopic extends DataObject
 {
     /**
@@ -24,8 +30,13 @@ class FAQTopic extends DataObject
      * @var array
      */
     private static $belongs_many_many = array(
-        'FAQs' => 'FAQ',
+        'FAQs' => FAQ::class,
     );
+
+    /**
+     * @var string
+     */
+    private static $table_name = "FAQTopic";
 
     /**
      * @var string
@@ -51,7 +62,7 @@ class FAQTopic extends DataObject
      * @param null $member
      * @return bool|int
      */
-    public function canCreate($member = null)
+    public function canCreate($member = null, $context = [])
     {
         return Permission::check('FAQ_CREATE', 'any', $member);
     }

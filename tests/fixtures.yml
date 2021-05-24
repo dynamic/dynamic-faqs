@@ -1,31 +1,31 @@
-Group:
+SilverStripe\Security\Group:
   administrators:
     Title: Administrators
-Permission:
+SilverStripe\Security\Permission:
   administrators:
     Code: ADMIN
     Type: 1
-    Group: =>Group.administrators
-Member:
+    Group: =>SilverStripe\Security\Group.administrators
+SilverStripe\Security\Member:
   admin:
     FirstName: Default
     Surname: Admin
     Email: admin@dynamicagency.com
-    Groups: =>Group.administrators
+    Groups: =>SilverStripe\Security\Group.administrators
   default:
     FirstName: Default
     Surname: User
     Email: user@dynamicagency.com
-FAQPage:
+Dynamic\FAQ\Page\FAQPage:
   default:
     Title: 'FAQs'
-FAQTopic:
+Dynamic\FAQ\Model\FAQTopic:
   one:
     Title: 'Topic One'
   two:
     Title: 'Topic Two'
-FAQ:
+Dynamic\FAQ\Model\FAQ:
   one:
     Title: 'Question One'
     URLSegment: 'question-one'
-    Topics: =>FAQTopic.one,=>FAQTopic.two
+    Topics: =>Dynamic\FAQ\Model\FAQTopic.one,=>Dynamic\FAQ\Model\FAQTopic.two
