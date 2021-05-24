@@ -1,12 +1,16 @@
 <?php
 
+namespace Dynamic\FAQ\Test;
+
+use SilverStripe\Dev\FunctionalTest;
+
 class FAQPageTest extends FunctionalTest
 {
     /**
      * @var string
      */
-    protected static $fixture_file = 'dynamic-faqs/tests/fixtures.yml';
-    
+    protected static $fixture_file = 'fixtures.yml';
+
     public function testView()
     {
         /*

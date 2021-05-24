@@ -1,7 +1,15 @@
 <?php
 
+namespace Dynamic\FAQ\BulkLoader;
+
+use Dynamic\FAQ\Model\FAQTopic;
+use SilverStripe\Dev\CsvBulkLoader;
+
 class FAQBulkLoader extends CsvBulkLoader
 {
+    /**
+     * @var string[]
+     */
     public $columnMap = array(
         'Title' => 'Title',
         'Type' => 'Type',
@@ -10,33 +18,58 @@ class FAQBulkLoader extends CsvBulkLoader
         'Keywords' => 'Keywords',
     );
 
+    /**
+     * @var string[]
+     */
     public $duplicateChecks = array(
         'SilverCloud_ID',
         'ID',
     );
 
-    // getter functions to use in custom importer methods below
+    /**
+     * getter functions to use in custom importer methods below
+     *
+     * @param $val
+     * @return bool
+     */
     public function getBoolean($val)
     {
         return $val == 'Y';
     }
 
+    /**
+     * @param $val
+     * @return string
+     */
     public function getDate($val)
     {
         return date('Y-m-d', strtotime($val));
     }
 
+    /**
+     * @param $val
+     * @return string
+     */
     public function getTime($val)
     {
         return date('H:i:s', strtotime($val));
     }
 
+    /**
+     * @param $val
+     * @return array|string|string[]|null
+     */
     public function getEscape($val)
     {
         $val = str_replace('_x000D_', '', $val);
         return preg_replace("/\r|\n/", '', $val);
     }
 
+    /**
+     * @param $obj
+     * @param $val
+     * @param $record
+     */
     public function getContent(&$obj, $val, $record)
     {
         if ($val) {
@@ -49,6 +82,11 @@ class FAQBulkLoader extends CsvBulkLoader
         }
     }
 
+    /**
+     * @param $obj
+     * @param $val
+     * @param $record
+     */
     public function getTopic(&$obj, $val, $record)
     {
         if ($val) {
@@ -68,6 +106,11 @@ class FAQBulkLoader extends CsvBulkLoader
         }
     }
 
+    /**
+     * @param $obj
+     * @param $val
+     * @param $record
+     */
     public function getTag(&$obj, $val, $record)
     {
         if ($val) {

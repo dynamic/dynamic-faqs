@@ -1,6 +1,13 @@
 <?php
 
-class FAQPage extends Page
+namespace Dynamic\FAQ\Page;
+
+use Dynamic\FAQ\Model\FAQ;
+use SilverStripe\Control\HTTPRequest;
+use SilverStripe\ORM\FieldType\DBHTMLText;
+use SilverStripe\View\ArrayData;
+
+class FAQPage extends \Page
 {
     /**
      * @var string
@@ -13,7 +20,7 @@ class FAQPage extends Page
     private static $plural_name = 'FAQ Pages';
 }
 
-class FAQPage_Controller extends Page_Controller
+class FAQPage_Controller extends \PageController
 {
     /**
      * @var array
@@ -23,10 +30,10 @@ class FAQPage_Controller extends Page_Controller
     ];
 
     /**
-     * @param SS_HTTPRequest $request
-     * @return HTMLText
+     * @param HTTPRequest $request
+     * @return DBHTMLText
      */
-    public function view(SS_HTTPRequest $request)
+    public function view(HTTPRequest $request)
     {
         $urlSegment = $request->latestParam('ID');
 
