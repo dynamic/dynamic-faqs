@@ -2,6 +2,9 @@
 
 namespace Dynamic\FAQ\Admin;
 
+use Dynamic\FAQ\BulkLoader\FAQBulkLoader;
+use Dynamic\FAQ\Model\FAQ;
+use Dynamic\FAQ\Model\FAQTopic;
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Forms\CheckboxField;
 
@@ -11,15 +14,15 @@ class FAQAdmin extends ModelAdmin
      * @var string[]
      */
     private static $managed_models = array(
-        'FAQ',
-        'FAQTopic',
+        FAQ::class,
+        FAQTopic::class,
     );
 
     /**
      * @var string[]
      */
     private static $model_importers = array(
-        'FAQ' => 'FAQBulkLoader',
+        'FAQ' => FAQBulkLoader::class,
     );
 
     /**

@@ -1,10 +1,10 @@
 ---
 Name: dynamicfaqsconfig
 ---
-FAQPage_Controller:
-  managed_object: 'FAQ'
+FAQPageController:
+  managed_object: Dynamic\FAQ\Model\FAQ
   extensions:
-    - CollectionExtension
+    - Dynamic\Collection\CollectionExtension
 FAQ:
   extensions:
     - Dynamic\ViewableDataObject\Extensions\ViewableDataObject
