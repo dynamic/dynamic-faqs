@@ -6,6 +6,7 @@ use Dynamic\FAQ\Page\FAQPage;
 use Dynamic\ViewableDataObject\VDOInterfaces\ViewableDataObjectInterface;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataObject;
@@ -37,8 +38,7 @@ class FAQ extends DataObject implements PermissionProvider, ViewableDataObjectIn
     private static $db = array(
         'Title' => 'Varchar(255)',
         'Content' => 'HTMLText',
-        'Popularity' => 'Int',
-        'Keywords' => 'Text',
+        'SortOrder' => 'Int',
     );
 
     /**
@@ -74,7 +74,7 @@ class FAQ extends DataObject implements PermissionProvider, ViewableDataObjectIn
      */
     private static $summary_fields = array(
         'Title' => 'Title',
-        'Popularity' => 'Popularity',
+        'TopicNames' => 'Topics',
     );
 
     /**
@@ -90,9 +90,6 @@ class FAQ extends DataObject implements PermissionProvider, ViewableDataObjectIn
         'Topics.ID' => [
             'title' => 'Topic',
         ],
-        'Keywords' => [
-            'title' => 'Keywords'
-        ],
     );
 
     /**
@@ -105,30 +102,27 @@ class FAQ extends DataObject implements PermissionProvider, ViewableDataObjectIn
      */
     public function getCMSFields()
     {
-        $fields = parent::getCMSFields();
+        $this->beforeUpdateCMSFields(function (FieldList $fields) {
+            $fields->removeByName([
+                'SortOrder',
+            ]);
 
-        $fields->removeByName([
-            'Popularity',
-            'Topics',
-        ]);
+            if ($this->ID) {
+                // Topics
+                $config = GridFieldConfig_RelationEditor::create();
+                $config->addComponent(new GridFieldOrderableRows('Sort'));
+                $config->removeComponentsByType(GridFieldAddExistingAutocompleter::class);
+                $config->addComponent(new GridFieldAddExistingSearchButton());
+                $topics = $this->Topics()->sort('Sort');
+                $topicsField = GridField::create('Topics', 'Topics', $topics, $config);
 
-        $fields->insertBefore(TextField::create('Keywords', 'Keywords'), 'Content');
+                $fields->addFieldsToTab('Root.Topics', array(
+                    $topicsField,
+                ));
+            }
+        });
 
-        if ($this->ID) {
-            // Topics
-            $config = GridFieldConfig_RelationEditor::create();
-            $config->addComponent(new GridFieldOrderableRows('Sort'));
-            $config->removeComponentsByType('GridFieldAddExistingAutocompleter');
-            $config->addComponent(new GridFieldAddExistingSearchButton());
-            $topics = $this->Topics()->sort('Sort');
-            $topicsField = GridField::create('Topics', 'Topics', $topics, $config);
-
-            $fields->addFieldsToTab('Root.Topics', array(
-                $topicsField,
-            ));
-        }
-
-        return $fields;
+        return parent::getCMSFields();
     }
 
     /**
