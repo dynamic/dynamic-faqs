@@ -2,7 +2,12 @@
 
 namespace Dynamic\FAQ\Test;
 
+use Dynamic\FAQ\Model\FAQ;
+use Dynamic\FAQ\Page\FAQPage;
+use Dynamic\FAQ\Page\FAQPageController;
+use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Dev\FunctionalTest;
+use SilverStripe\ORM\DataList;
 
 class FAQPageTest extends FunctionalTest
 {
@@ -11,14 +16,12 @@ class FAQPageTest extends FunctionalTest
      */
     protected static $fixture_file = 'fixtures.yml';
 
-    public function testView()
+    /**
+     *
+     */
+    public function testGetFAQList()
     {
-        /*
-        $object = $this->objFromFixture('FAQ', 'one');
-        $page = $this->objFromFixture('FAQPage', 'default');
-        $controller = new FAQPage_Controller($object);
-        $reqeust = new SS_HTTPRequest('GET', $object->Link());
-        $this->assertInstanceOf('HTMLText', $controller->view($reqeust));
-        */
+        $page = $this->objFromFixture(FAQPage::class, 'default');
+        $this->assertInstanceOf(DataList::class, $page->getFAQList());
     }
 }
