@@ -1,11 +1,13 @@
 SilverStripe\Security\Group:
   administrators:
     Title: Administrators
+
 SilverStripe\Security\Permission:
   administrators:
     Code: ADMIN
     Type: 1
     Group: =>SilverStripe\Security\Group.administrators
+
 SilverStripe\Security\Member:
   admin:
     FirstName: Default
@@ -16,14 +18,17 @@ SilverStripe\Security\Member:
     FirstName: Default
     Surname: User
     Email: user@dynamicagency.com
+
 Dynamic\FAQ\Page\FAQPage:
   default:
     Title: 'FAQs'
+
 Dynamic\FAQ\Model\FAQTopic:
   one:
     Title: 'Topic One'
   two:
     Title: 'Topic Two'
+
 Dynamic\FAQ\Model\FAQ:
   one:
     Title: 'Question One'

@@ -60,7 +60,7 @@ class FAQ extends DataObject implements PermissionProvider, ViewableDataObjectIn
     /**
      * @var string
      */
-    private static $default_sort = 'Popularity DESC, Title';
+    private static $default_sort = 'SortOrder';
 
     /**
      * @var array
